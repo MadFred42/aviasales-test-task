@@ -1,0 +1,19 @@
+.ticket {
+
+}
+
+.header {
+    display: flex;
+}
+
+.price {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 24px;
+}
+
+.ticket-info {
+    display: flex;
+}

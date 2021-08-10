@@ -1,0 +1,50 @@
+.filter-block {
+    position: absolute;
+    width: 232px;
+    height: 252px;
+    left: 103px;
+    top: 160px;
+    bottom: 69.48%;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.filter-block h1 {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #4A4A4A;
+}
+
+.checkbox-block {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 20px;
+    display: block;
+    align-items: center;
+    color: #4A4A4A;
+}
+
+.check {
+    position: relative;
+    margin-top: 30px;
+    align-items: center;
+}
+
+.check input {
+    transform: scale(1.2);
+    border: 1px solid #9ABBCE;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+
+.check span {
+    margin-left: 10px;
+}
