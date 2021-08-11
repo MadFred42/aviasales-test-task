@@ -1,8 +1,7 @@
 import React from 'react';
 import SelectingTabs from '../selectingTabs/selectingTabs';
 import FilterItems from '../filterItems/filterItems';
-import TicketListItems from '../ticketListItems';
-
+import TicketList from '../ticketList';
 import image from './Logo.jpg';
 
 import './app.css';
@@ -12,10 +11,10 @@ const App = () => {
 
     return (
         <div className='app'>
-            <img src={image} alt='logo' />
+            <img className='main-logo' src={image} alt='logo' />
             <SelectingTabs />
             <FilterItems />
-            <TicketListItems />
+            <TicketList />
         </div>
     )
 }

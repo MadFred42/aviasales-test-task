@@ -17,7 +17,7 @@ export default class AviaSalesSerive {
         console.log(url);
         const res = await fetch(`${this.__urlTickets}?searchId=${url}`);
 
-        return res;
+        return res.json();
     }
 
 }

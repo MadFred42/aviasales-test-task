@@ -1,50 +1,55 @@
 import React, { Component } from 'react';
-import WithAviaService from '../hoc'
 import { connect } from 'react-redux';
-import { getTicket } from '../../actions';
 
 import './ticketListItems.css';
 
-class TicketListItems extends Component {
+const TicketListItems = ({ price, carrier, segments }) => {
 
-    componentDidMount() {
-        const {AviaSalesService} = this.props;
+    const content = segments.map(item => {
+        const { date, destination, duration, origin, stops } = item;
+        console.log(date);
+        function getDuration() {
+            const hours = Math.floor(duration / 60),
+                  minutes = Math.floor(((duration / 60) % 1) * 60);
 
-        AviaSalesService.getId()
-            .then(item => this.props.getTicket(item.searchId));
+            return {
+                hours,
+                minutes
+            }
+        }
+        const time = getDuration();
 
-        AviaSalesService.getTickets(this.props.id)
-            .then(item => this.props.getTicket(`${item}`));
-    }
-    
-    render() {
-        console.log(this.props.ticket);
-        console.log(this.props.id);
+        function getZero(num) {
+            if (num < 10) {
+                return `0${num}`;
+            } else {
+                return num;
+            }
+        }
+
         return (
-            <div className='ticket'>
+            <li className='ticket'>
                 <div className='header'>
-                    <div className='price'>price</div>
-                    <div className='logo'>logo</div>
+                    <div className='price'>{price} Р</div>
+                    <img className='logo' src={`https://pics.avs.io/99/36/${carrier}.png`} alt='logo'></img>
                 </div>
                 <div className='ticket-info'>
-                    <div className='route'>Route</div>
-                    <div className='length'>Length</div>
-                    <div className='stops'>Stops</div>
+                    <div className='route'>
+                        <span>{`${origin} - ${destination}`}</span>
+                        <div></div>
+                    </div>
+                    <div className='length'>
+                        <span>В пути</span>
+                        <div>{`${getZero(time.hours)}ч ${getZero(time.minutes)}м`}</div>
+                    </div>
+                    <div className='stops'></div>
                 </div>
-            </div>
-        )
-    }
-}
+            </li>
+        );
+    })
 
-const mapStateToProps = ({ id, tickets }) => {
-    return {
-        id,
-        tickets
-    }
-};
+   
+    return content; 
+}  
 
-const mapDispatchToProps = {
-    getTicket
-};
-
-export default  WithAviaService()(connect(mapStateToProps, mapDispatchToProps)(TicketListItems));
+export default connect()(TicketListItems);

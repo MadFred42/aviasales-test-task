@@ -14,7 +14,7 @@ const reducer = (state = initialState, action) => {
             console.log(action.payload);
             return {
                 ...state,
-                id: action.payload
+                tickets: action.payload
             }
         default:
             return state;
