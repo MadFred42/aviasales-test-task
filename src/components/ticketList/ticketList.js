@@ -23,7 +23,6 @@ class TicketList extends Component {
     render() {
         const { tickets } = this.props;
         const elements = tickets.tickets;
-        console.log(elements);
         
         if (!elements) {
             return <Spinner />
@@ -32,18 +31,7 @@ class TicketList extends Component {
         const content = elements.map((item, index) => {
             const { price, carrier, segments } = item;
             const id = index + 1;
-            segments.map(item => {
-                const { date, destination, duration, origin, stops } = item;
-                
-                return {
-                    date, 
-                    destination,
-                    duration,
-                    origin,
-                    stops
-                }
-            });
-
+            
             return (
                 <TicketListItems 
                     key={id}
@@ -52,6 +40,7 @@ class TicketList extends Component {
                     segments={segments} />
             )
         });
+
         return (
             <View items={content} /> 
         )
@@ -70,7 +59,7 @@ const mapDispatchToProps = {
     getTicket
 };
 
-const View = ({items}) => {
+const View = ({ items }) => {
     return (
         <ul className='tickets'>
             {items}

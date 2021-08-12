@@ -16,10 +16,6 @@
     display: flex;
 }
 
-.s {
-    display: flex;
-}
-
 .price {
     margin-top: 26px;
     font-family: Open Sans;
@@ -70,6 +66,11 @@
     color: #A0B0B9;
 }
 
+.length {
+    width: 141px;
+    height: 39px;
+}
+
 .length span{
     font-family: Open Sans;
     font-style: normal;
@@ -80,4 +81,43 @@
     letter-spacing: 0.5px;
     text-transform: uppercase;
     color: #A0B0B9;
+}
+
+.length div{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    color: #4A4A4A;
+}
+
+.stops {
+    width: 140px;
+    height: 39px;
+}
+
+.stops span{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    align-items: center;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #A0B0B9;
+}
+
+.stops div{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    color: #4A4A4A;
 }
