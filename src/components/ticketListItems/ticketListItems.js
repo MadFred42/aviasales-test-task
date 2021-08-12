@@ -30,7 +30,7 @@ const TicketListItems = ({ price, carrier, segments }) => {
 
     const getTimeFlight = (i) => {
         const time = new Date(segments[i].date);
-        console.log(time);
+        const fullFlight = time.getMinutes();
     }
     getTimeFlight(0)
     const getStops = (i) => {
