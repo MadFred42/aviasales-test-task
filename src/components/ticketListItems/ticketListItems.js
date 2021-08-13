@@ -4,53 +4,101 @@ import './ticketListItems.css';
 
 const TicketListItems = ({ price, carrier, segments }) => {
     
-    function getDurationFlight() {
-        const hours = Math.floor(segments[0].duration / 60),
-              minutes = Math.floor(((segments[0].duration / 60) % 1) * 60),
-              hoursBack = Math.floor(segments[1].duration / 60),
-              minutesBack = Math.floor(((segments[1].duration / 60) % 1) * 60);
+    const content = segments.map((item, index) => {
+        const { origin, destination, date, duration, stops } = item;
 
-        return {
-            hours,
-            minutes,
-            hoursBack,
-            minutesBack
+        function getDurationFlight() {
+            const hours = Math.floor(duration / 60),
+                  minutes = Math.floor(((duration / 60) % 1) * 60);
+    
+            return {
+                hours,
+                minutes
+            }
         }
-    }
 
-    const timeDuration = getDurationFlight();
+        const departureDate = new Date(date);
+        const departureHours = departureDate.getHours();
+        const departureMinutes = departureDate.getMinutes();
 
-    function getZero(num) {
-        if (num < 10) {
-            return `0${num}`;
-        } else {
-            return num;
+        const getArrivalTime = () => {
+            let arrivalHours = departureHours + getDurationFlight().hours;
+            let arrivalMinutes = departureMinutes + getDurationFlight().minutes;
+            console.log(arrivalHours);
+            if (arrivalHours > 24 && arrivalMinutes > 59) {
+                return {
+                    arrivalHours: arrivalHours - 23,
+                    arrivalMinutes: arrivalMinutes - 60  
+                };
+            } else if (arrivalHours < 24 && arrivalMinutes > 59) {
+                return {
+                    arrivalHours: arrivalHours + 1,
+                    arrivalMinutes: arrivalMinutes - 60
+                }
+            } else if (arrivalHours > 24 && arrivalMinutes < 59) {
+                return {
+                    arrivalHours:arrivalHours - 24,
+                    arrivalMinutes
+                } 
+            } else if (arrivalHours > 48 && arrivalMinutes < 59) {
+                return {
+                    arrivalHours:arrivalHours - 48,
+                    arrivalMinutes
+                } 
+            } else {
+                return {
+                    arrivalHours: arrivalHours,
+                    arrivalMinutes: arrivalMinutes
+                }
+            }
         }
-    }
 
-    const getTimeFlight = (i) => {
-        const time = new Date(segments[i].date);
-        const fullFlight = time.getMinutes();
-    }
-    getTimeFlight(0)
-    const getStops = (i) => {
-        switch (segments[i].stops.length) {
-            case 1:
-                return (
-                    <div>{segments[i].stops[0]}</div>
-                );
-            case 2:
-                return (
-                    <div>{segments[i].stops[0]}, {segments[i].stops[1]}</div>
-                )
-            case 3:
-                return (
-                    <div>{segments[i].stops[0]}, {segments[i].stops[1]}, {segments[i].stops[2]}</div>
-                )
-            default:
-                return;
+        console.log(getArrivalTime().arrivalHours);
+
+        function getZero(num) {
+            if (num < 10) {
+                return `0${num}`;
+            } else {
+                return num;
+            }
         }
-    }
+
+        const getStops = () => {
+            switch (stops.length) {
+                case 1:
+                    return (
+                        <div>{stops[0]}</div>
+                    );
+                case 2:
+                    return (
+                        <div>{stops[0]}, {stops[1]}</div>
+                    )
+                case 3:
+                    return (
+                        <div>{stops[0]}, {stops[1]}, {stops[2]}</div>
+                    )
+                default:
+                    return;
+            }
+        }
+
+        return (
+            <div key={index + 1} className='ticket-info'>
+                <div className='route'>
+                    <span>{`${origin} - ${destination}`}</span>
+                    <div>{getZero(departureHours)}:{getZero(departureMinutes)} - {getZero(getArrivalTime().arrivalHours)}:{getZero(getArrivalTime().arrivalMinutes)}</div>
+                </div>
+                <div className='length'>
+                    <span>В пути</span>
+                    <div>{`${getZero(getDurationFlight().hours)}ч ${(getDurationFlight().minutes)}м`}</div>
+                </div>
+                <div className='stops'>
+                    <span>{stops.length} пересадки</span>
+                    {getStops()}
+                </div>
+            </div>
+        )
+    })  
     
     return (
         <li className='ticket'>
@@ -58,23 +106,9 @@ const TicketListItems = ({ price, carrier, segments }) => {
                 <div className='price'>{price} Р</div>
                 <img className='logo' src={`https://pics.avs.io/99/36/${carrier}.png`} alt='logo'></img>
             </div>
-            <div className='ticket-info'>
-                <div className='route'>
-                    <span>{`${segments[0].origin} - ${segments[0].destination}`}</span>
-                    <div></div>
-                </div>
-                <div className='length'>
-                    <span>В пути</span>
-                    <div>{`${getZero(timeDuration.hours)}ч ${getZero(timeDuration.minutes)}м`}</div>
-                </div>
-                <div className='stops'>
-                    <span>{segments[0].stops.length} пересадки</span>
-                    {getStops(0)}
-                </div>
-            </div>
+            {content}
         </li>
     );
-
 }  
 
 export default TicketListItems;

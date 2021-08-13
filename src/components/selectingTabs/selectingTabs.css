@@ -18,6 +18,7 @@
     text-align: center;
     border: 1px solid #DFE5EC;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 .tabs .tabs-item-r {
@@ -26,6 +27,7 @@
     text-align: center;
     border: 1px solid #DFE5EC;
     box-sizing: border-box;
+    cursor: pointer;
     border-radius: 0 8px 8px 0;
 }
 

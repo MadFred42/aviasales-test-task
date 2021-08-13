@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getId, getTicket } from '../../actions';
 import TicketListItems from '../ticketListItems';
 import Spinner from '../spinner/spinner';
+import MoreContentBtn from '../moreContentBtn';
 
 import './ticketList.css';
 
@@ -28,7 +29,9 @@ class TicketList extends Component {
             return <Spinner />
         }
 
-        const content = elements.map((item, index) => {
+        const items = elements.slice(0, 5);
+
+        const content = items.map((item, index) => {
             const { price, carrier, segments } = item;
             const id = index + 1;
             
@@ -63,6 +66,7 @@ const View = ({ items }) => {
     return (
         <ul className='tickets'>
             {items}
+            <MoreContentBtn />
         </ul>
     )
 }
