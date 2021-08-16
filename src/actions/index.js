@@ -12,7 +12,31 @@ const getTicket = (arr) => {
     }
 }
 
+const showContent = (arr) => {
+    return {
+        type: 'SHOW_SOME_CONTENT',
+        payload: arr
+    }
+}
+
+const showTheCheapest = () => {
+    console.log('helloEba');
+    return {
+        type: 'SHOW_THE_CHEAPEST'
+    }
+}
+
+const showFiveMore = () => {
+    console.log('sss');
+    return {
+        type: 'SHOW_MORE'
+    }
+}
+
 export {
     getId,
-    getTicket
+    getTicket,
+    showContent,
+    showTheCheapest,
+    showFiveMore
 }

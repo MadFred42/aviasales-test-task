@@ -1,10 +1,12 @@
 import React from 'react';
+// import { connect } from 'react-redux';
 
 import './ticketListItems.css';
 
 const TicketListItems = ({ price, carrier, segments }) => {
-    
+    console.log(segments);
     const content = segments.map((item, index) => {
+
         const { origin, destination, date, duration, stops } = item;
 
         function getDurationFlight() {
@@ -24,7 +26,7 @@ const TicketListItems = ({ price, carrier, segments }) => {
         const getArrivalTime = () => {
             let arrivalHours = departureHours + getDurationFlight().hours;
             let arrivalMinutes = departureMinutes + getDurationFlight().minutes;
-            console.log(arrivalHours);
+            
             if (arrivalHours > 24 && arrivalMinutes > 59) {
                 return {
                     arrivalHours: arrivalHours - 23,
@@ -51,9 +53,7 @@ const TicketListItems = ({ price, carrier, segments }) => {
                     arrivalMinutes: arrivalMinutes
                 }
             }
-        }
-
-        console.log(getArrivalTime().arrivalHours);
+        };
 
         function getZero(num) {
             if (num < 10) {
@@ -80,7 +80,7 @@ const TicketListItems = ({ price, carrier, segments }) => {
                 default:
                     return;
             }
-        }
+        };
 
         return (
             <div key={index + 1} className='ticket-info'>
@@ -98,7 +98,7 @@ const TicketListItems = ({ price, carrier, segments }) => {
                 </div>
             </div>
         )
-    })  
+    });  
     
     return (
         <li className='ticket'>

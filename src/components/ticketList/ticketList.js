@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import WithAviaService from '../hoc';
 import { connect } from 'react-redux';
-import { getId, getTicket } from '../../actions';
+import { getId, getTicket, showContent, showFiveMore } from '../../actions';
 import TicketListItems from '../ticketListItems';
 import Spinner from '../spinner/spinner';
 import MoreContentBtn from '../moreContentBtn';
@@ -15,23 +15,24 @@ class TicketList extends Component {
     
         AviaSalesService.getId()
             .then(item => {
-                this.props.getId(item.searchId)  
+                this.props.getId(item.searchId);  
                 AviaSalesService.getTickets(item.searchId)
-                    .then(item => this.props.getTicket(item));
+                    .then(item => {
+                        this.props.getTicket(item.tickets);
+                        this.props.showContent(item.tickets)
+                    });
             });
     }
     
     render() {
-        const { tickets } = this.props;
-        const elements = tickets.tickets;
-        
-        if (!elements) {
+        const { tickets, content } = this.props;
+        // const elements = tickets.tickets;
+        console.log(content);
+        if (!tickets) {
             return <Spinner />
         }
 
-        const items = elements.slice(0, 5);
-
-        const content = items.map((item, index) => {
+        const viewedContent = content.map((item, index) => {
             const { price, carrier, segments } = item;
             const id = index + 1;
             
@@ -39,34 +40,38 @@ class TicketList extends Component {
                 <TicketListItems 
                     key={id}
                     price={price} 
-                    carrier={carrier} 
+                    carrier={carrier}
                     segments={segments} />
             )
         });
 
         return (
-            <View items={content} /> 
+            <View items={viewedContent} /> 
         )
     }
 }
 
-const mapStateToProps = ({ id, tickets }) => {
+const mapStateToProps = ({ id, tickets, content }) => {
     return {
         id,
-        tickets
+        tickets,
+        content
     }
 };
 
 const mapDispatchToProps = {
     getId,
-    getTicket
+    getTicket,
+    showContent,
+    showFiveMore
 };
 
 const View = ({ items }) => {
     return (
         <ul className='tickets'>
             {items}
-            <MoreContentBtn />
+            <button onClick={() => showFiveMore()}>ПОКАЗАТЬ ЕЩЁ 5 БИЛЕТОВ</button>
+            {/* <MoreContentBtn  /> */}
         </ul>
     )
 }
