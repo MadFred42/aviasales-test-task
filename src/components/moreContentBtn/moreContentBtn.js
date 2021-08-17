@@ -2,9 +2,9 @@ import React from 'react';
 
 import './moreContentBtn.css';
 
-const MoreContentBtn = () => {
+const MoreContentBtn = ({ onShowTickets }) => {
     return (
-        <button>Показать ещё 5 билетов!</button>
+        <button onClick={() => onShowTickets()}>Показать ещё 5 билетов!</button>
     )
 }
 

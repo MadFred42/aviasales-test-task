@@ -25,10 +25,9 @@ class TicketList extends Component {
     }
     
     render() {
-        const { tickets, content } = this.props;
-        // const elements = tickets.tickets;
-        console.log(content);
-        if (!tickets) {
+        const { content, showFiveMore } = this.props;
+        
+        if (!content) {
             return <Spinner />
         }
 
@@ -46,15 +45,14 @@ class TicketList extends Component {
         });
 
         return (
-            <View items={viewedContent} /> 
+            <View items={viewedContent} showFiveMore={showFiveMore} /> 
         )
     }
 }
 
-const mapStateToProps = ({ id, tickets, content }) => {
+const mapStateToProps = ({ id, content }) => {
     return {
         id,
-        tickets,
         content
     }
 };
@@ -66,12 +64,11 @@ const mapDispatchToProps = {
     showFiveMore
 };
 
-const View = ({ items }) => {
+const View = ({ items, showFiveMore }) => {
     return (
         <ul className='tickets'>
             {items}
-            <button onClick={() => showFiveMore()}>ПОКАЗАТЬ ЕЩЁ 5 БИЛЕТОВ</button>
-            {/* <MoreContentBtn  /> */}
+            <MoreContentBtn onShowTickets={() => showFiveMore(items)} />
         </ul>
     )
 }

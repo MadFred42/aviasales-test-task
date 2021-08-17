@@ -12,24 +12,52 @@ const getTicket = (arr) => {
     }
 }
 
-const showContent = (arr) => {
+const showContent = () => {
     return {
-        type: 'SHOW_SOME_CONTENT',
-        payload: arr
+        type: 'SHOW_SOME_CONTENT'
     }
 }
 
-const showTheCheapest = () => {
-    console.log('helloEba');
+const showTheCheapest = (data) => {
     return {
-        type: 'SHOW_THE_CHEAPEST'
+        type: 'SHOW_THE_CHEAPEST',
+        payload: data
     }
 }
 
-const showFiveMore = () => {
-    console.log('sss');
+const showTheFastest = (data) => {
     return {
-        type: 'SHOW_MORE'
+        type: 'SHOW_THE_FASTEST',
+        payload: data
+    }
+}
+
+const showOpti = (data) => {
+    return {
+        type: 'SHOW_OPTIMAL',
+        payload: data
+    }
+}
+
+const showFiveMore = (data) => {
+    return {
+        type: 'SHOW_MORE',
+        payload: data
+    }
+}
+
+const showZeroChanges = (data) => {
+    return {
+        type: 'WITHOUT_CHANGES',
+        payload: data
+    }
+}
+
+const showOneChange = (data, changes) => {
+    return {
+        type: 'ONE_CHANGE',
+        payload: data,
+        changes
     }
 }
 
@@ -38,5 +66,9 @@ export {
     getTicket,
     showContent,
     showTheCheapest,
-    showFiveMore
+    showFiveMore,
+    showTheFastest,
+    showOpti,
+    showZeroChanges,
+    showOneChange
 }

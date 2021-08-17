@@ -1,23 +1,44 @@
 import React from 'react';
-import { showTheCheapest } from '../../actions';
+import { showTheCheapest, showTheFastest, showOpti } from '../../actions';
 import { connect } from 'react-redux';
 
 import './selectingTabs.css';
 
-const SelectingTabs = ({ content }, dispatch) => {
-    console.log(dispatch);
+const SelectingTabs = ({ content, active, showTheCheapest, showTheFastest, showOpti }) => {
+
+    let classCheap = 'tabs-item';
+    let classFast = 'tabs-item';
+    let classOpti = 'tabs-item-r';
+
+    if (active === 'cheapest') {
+        classCheap = 'tabs-item active';
+    } else if (active === 'fastest') {
+        classFast = 'tabs-item active';
+    } else if (active === 'opti') {
+        classOpti = 'tabs-item-r active';
+    }
+
     return (
         <div className='tabs'>
-            <button className="tabs-item active" onClick={() => showTheCheapest()}><p>Самый дешевый</p></button>
-            <button className='tabs-item'><p>Самый быстрый</p></button>
-            <button className='tabs-item-r'><p>Оптимальный</p></button>
+            <div id='cheapest' className={classCheap} onClick={() => showTheCheapest(content)}><p>Самый дешевый</p></div>
+            <div className={classFast} onClick={() => showTheFastest(content)}><p>Самый быстрый</p></div>
+            <div className={`${classOpti}`} onClick={() => showOpti(content)}><p>Оптимальный</p></div>
         </div>
     )
 };
 
-
-const mapDispatchToProps = {
-    showTheCheapest
+const mapStateToProps = ({content, active, changes}) => {
+    return {
+        content,
+        active,
+        changes
+    }
 }
 
-export default connect(null, mapDispatchToProps)(SelectingTabs);
+const mapDispatchToProps = {
+    showTheCheapest,
+    showTheFastest,
+    showOpti
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectingTabs);

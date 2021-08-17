@@ -1,10 +1,15 @@
 import React from 'react';
+import Spinner from '../spinner/spinner';
 // import { connect } from 'react-redux';
 
 import './ticketListItems.css';
 
 const TicketListItems = ({ price, carrier, segments }) => {
-    console.log(segments);
+    
+    if(!segments) {
+        return <Spinner/>
+    }
+    
     const content = segments.map((item, index) => {
 
         const { origin, destination, date, duration, stops } = item;
