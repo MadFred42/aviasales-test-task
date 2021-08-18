@@ -46,18 +46,26 @@ const showFiveMore = (data) => {
     }
 }
 
-const showZeroChanges = (data) => {
+const showChanges = (data, id) => {
     return {
-        type: 'WITHOUT_CHANGES',
-        payload: data
+        type: 'CHANGES',
+        payload: data,
+        id: id
     }
 }
 
-const showOneChange = (data, changes) => {
+const showAllChanges = (data, id) => {
     return {
-        type: 'ONE_CHANGE',
+        type: 'ALL_CHANGES',
         payload: data,
-        changes
+        id
+    }
+}
+
+const showWithoutFilter = (data) => {
+    return {
+        type: 'SHOW_WITHOUT_FILTER',
+        payload: data
     }
 }
 
@@ -69,6 +77,7 @@ export {
     showFiveMore,
     showTheFastest,
     showOpti,
-    showZeroChanges,
-    showOneChange
+    showChanges,
+    showWithoutFilter,
+    showAllChanges
 }

@@ -5,6 +5,7 @@ export default class AviaSalesSerive {
 
     async getId() {
         const res = await fetch(`${this.__urlId}`);
+        
 
         if (!res.ok) {
             throw new Error(`Can't fetch ${this.__urlId}, status: ${res.status}`)
@@ -16,6 +17,11 @@ export default class AviaSalesSerive {
     async getTickets(url) {
         console.log(url);
         const res = await fetch(`${this.__urlTickets}?searchId=${url}`);
+
+        if (res.status === 500) {
+            const res = await fetch(`${this.__urlTickets}?searchId=${url}`);
+            return res.json();
+        }
 
         return res.json();
     }

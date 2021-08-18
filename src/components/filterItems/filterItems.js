@@ -1,43 +1,42 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { showZeroChanges, showOneChange, showContent } from '../../actions';
+import { showChanges, showWithoutFilter } from '../../actions';
 
 import './filterItems.css'
 
-const FilterItems = ({ content, showZeroChanges, showOneChange, showContent }) => {
-
-    const checkers = document.querySelectorAll('input');
-    console.log(checkers);
+const FilterItems = ({ content, showChanges, showWithoutFilter }) => {
     
     const onChnge = (id) => {
-        const check = document.getElementById(id);
-        if (check.checked) {
-            showZeroChanges(content);
+        const checkes = document.querySelectorAll("input[type='checkbox']");
+        
+        if (checkes[id].checked) {
+            showChanges(content, id);
         } else {
-            showContent();
+            showWithoutFilter(content);
         }
     };
+
+    const checkboxes = [
+        {id: 1, type:'checkbox', label: 'Без пересадок'},
+        {id: 2, type:'checkbox', label: 'Одна пересадка'},
+        {id: 3, type:'checkbox', label: 'Две пересадки'},
+        {id: 4, type:'checkbox', label: 'Три пересадки'},
+    ];
+
+    const checkbox = checkboxes.map(({id, type, label, checked}, index) => {
+        return (
+            <div key={id} className='check'>
+                <input type={type} value='w/o change' onChange={() => onChnge(index)} />
+                <span>{label}</span>
+            </div>
+        )
+    })
 
     return (
         <div className='filter-block'>
             <h1>Количество пересадок</h1>
             <div className='checkbox-block'>
-                <div className='check'>
-                    <input id='0chng' onClick={() => onChnge('0chng')} type='checkbox' value='w/o change' />
-                    <span>Без пересадок</span>
-                </div>
-                <div className='check'>
-                    <input id='1chng' onClick={() => onChnge('1chng')} type='checkbox' value='1 change' />
-                    <span>1 пересадка</span>
-                </div>
-                <div className='check'>
-                    <input id='2chng' onClick={() => onChnge('2chng')} type='checkbox' value='2 changes' />
-                    <span>2 пересадки</span>
-                </div>
-                <div className='check'>
-                    <input id='3chng' onClick={() => onChnge('3chng')} type='checkbox' value='3 changes' />
-                    <span>3 пересадки</span>
-                </div>
+                {checkbox}
             </div>
         </div>
     )
@@ -50,9 +49,8 @@ const mapStateToProps = ({ content }) => {
 }
 
 const mapDispatchToProps = {
-    showZeroChanges,
-    showOneChange,
-    showContent
+    showChanges,
+    showWithoutFilter
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterItems);
