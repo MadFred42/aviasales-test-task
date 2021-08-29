@@ -2,8 +2,8 @@
     position: absolute;
     width: 232px;
     height: 252px;
-    left: 103px;
-    top: 160px;
+    left: 208px;
+    top: 250px;
     bottom: 69.48%;
     background: #FFFFFF;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
@@ -12,6 +12,7 @@
 
 .filter-block h1 {
     font-family: Open Sans;
+    margin: 10px;
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -22,6 +23,7 @@
 }
 
 .checkbox-block {
+    margin: 0 8px;
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
