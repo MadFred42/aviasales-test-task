@@ -22,25 +22,17 @@
     color: #4A4A4A;
 }
 
-.checkbox-block {
-    margin: 0 8px;
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 20px;
-    display: block;
-    align-items: center;
-    color: #4A4A4A;
-}
 
 .check {
+    cursor: pointer;
+    display: block;
+    left: 20px;
     position: relative;
-    margin-top: 30px;
-    align-items: center;
 }
 
-.check input {
+ .checkInput {
+    margin-top: 30px;
+    align-items: center;
     transform: scale(1.2);
     border: 1px solid #9ABBCE;
     box-sizing: border-box;

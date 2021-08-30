@@ -27,11 +27,10 @@ const SelectingTabs = ({ content, active, showTheCheapest, showTheFastest, showO
     )
 };
 
-const mapStateToProps = ({content, active, changes}) => {
+const mapStateToProps = ({content, active}) => {
     return {
         content,
-        active,
-        changes
+        active
     }
 }
 

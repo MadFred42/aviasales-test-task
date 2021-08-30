@@ -9,7 +9,7 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-    console.log(action.type);
+    
     switch (action.type) {
         case 'GET_ID':
             return {
@@ -44,8 +44,12 @@ const reducer = (state = initialState, action) => {
             };
         case 'SHOW_THE_FASTEST':
             const lastIndexFastest = action.payload.length;
-            const fastestSortTicket = state.tickets.sort((a, b) => a.segments[0].duration > b.segments[0].duration ? 1 : -1);
-            const fastestSort = state.filtered.sort((a, b) => a.segments[0].duration > b.segments[0].duration ? 1 : -1);
+            const fastestSortTicket = state.tickets.sort((a, b) => {
+                return a.segments[0].duration > b.segments[0].duration ? 1 : -1;
+            });
+            const fastestSort = state.filtered.sort((a, b) => {
+                return a.segments[0].duration > b.segments[0].duration ? 1 : -1;
+            });
             const fastest = fastestSort.slice(0, lastIndexFastest);
             return {
                 ...state,
@@ -56,8 +60,12 @@ const reducer = (state = initialState, action) => {
             };
         case 'SHOW_OPTIMAL':
             const lastIndexOpti = action.payload.length;
-            const optimalSortTicket = state.tickets.sort((a, b) => ((a.price + a.segments[0].duration) / 2) > ((b.price + b.segments[0].duration) / 2) ? 1 : -1);
-            const optimalSort = state.filtered.sort((a, b) => ((a.price + a.segments[0].duration) / 2) > ((b.price + b.segments[0].duration) / 2) ? 1 : -1);
+            const optimalSortTicket = state.tickets.sort((a, b) => {
+                return ((a.price + a.segments[0].duration) / 2) > ((b.price + b.segments[0].duration) / 2) ? 1 : -1;
+            });
+            const optimalSort = state.filtered.sort((a, b) => {
+                return ((a.price + a.segments[0].duration) / 2) > ((b.price + b.segments[0].duration) / 2) ? 1 : -1;
+            });
             const optimal = optimalSort.slice(0, lastIndexOpti);
             return {
                 ...state,
@@ -67,10 +75,14 @@ const reducer = (state = initialState, action) => {
                 active: 'opti'
             };
         case 'CHANGES':
-            console.log(action.id);
             const lastIndexChng = action.payload.length;
-            const changesSort = state.filtered.filter(item => (item.segments[0].stops.length === action.id && item.segments[1].stops.length === action.id));
-            const changes = changesSort.slice(0, lastIndexChng)
+            const changesSort = state.filtered.filter((item) => {
+                return item.segments.every(item => {
+                    return item.stops.length === +action.id
+                })
+            });
+            const changes = changesSort.slice(0, lastIndexChng);
+            
             return {
                 ...state,
                 filtered: changesSort,
