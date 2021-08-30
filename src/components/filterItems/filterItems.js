@@ -6,38 +6,38 @@ import './filterItems.css'
 
 const FilterItems = ({ content, showChanges, showWithoutFilter }) => {
     
-    const onChnge = (id) => {
-        const checkes = document.querySelectorAll("input[type='checkbox']");
+    const onChange = (event) => {
         
-        if (checkes[id].checked) {
-            showChanges(content, id);
+        if (event.checked) {
+            showChanges(content, event.id);
         } else {
             showWithoutFilter(content);
         }
     };
 
     const checkboxes = [
-        {id: 1, type:'checkbox', label: 'Без пересадок'},
-        {id: 2, type:'checkbox', label: 'Одна пересадка'},
-        {id: 3, type:'checkbox', label: 'Две пересадки'},
-        {id: 4, type:'checkbox', label: 'Три пересадки'},
+        {id: 1, label: 'Без пересадок'},
+        {id: 2, label: 'Одна пересадка'},
+        {id: 3, label: 'Две пересадки'},
+        {id: 4, label: 'Три пересадки'},
     ];
 
-    const checkbox = checkboxes.map(({id, type, label, checked}, index) => {
+    const checkbox = checkboxes.map(({ id, label }) => {
         return (
-            <div key={id} className='check'>
-                <input type={type} value='w/o change' onChange={() => onChnge(index)} />
+            <label key={id} className='check'>
+                <input className='checkInput' 
+                    id={id-1} 
+                    type='checkbox'
+                    onChange={(event) => onChange(event.target)} />
                 <span>{label}</span>
-            </div>
+            </label>
         )
     })
 
     return (
         <div className='filter-block'>
             <h1>Количество пересадок</h1>
-            <div className='checkbox-block'>
-                {checkbox}
-            </div>
+            {checkbox}
         </div>
     )
 }

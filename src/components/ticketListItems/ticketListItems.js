@@ -1,5 +1,6 @@
 import React from 'react';
 import Spinner from '../spinner/spinner';
+import TicketListHeader from '../ticketListHeader';
 // import { connect } from 'react-redux';
 
 import './ticketListItems.css';
@@ -13,52 +14,19 @@ const TicketListItems = ({ price, carrier, segments }) => {
     const content = segments.map((item, index) => {
 
         const { origin, destination, date, duration, stops } = item;
-
+        
         function getDurationFlight() {
             const hours = Math.floor(duration / 60),
                   minutes = Math.floor(((duration / 60) % 1) * 60);
-    
-            return {
-                hours,
-                minutes
-            }
-        }
-
-        const departureDate = new Date(date);
-        const departureHours = departureDate.getHours();
-        const departureMinutes = departureDate.getMinutes();
-
-        const getArrivalTime = () => {
-            let arrivalHours = departureHours + getDurationFlight().hours;
-            let arrivalMinutes = departureMinutes + getDurationFlight().minutes;
+            const flightDuration = (`${getZero(hours)}ч${getZero(minutes)}м`);
             
-            if (arrivalHours > 24 && arrivalMinutes > 59) {
-                return {
-                    arrivalHours: arrivalHours - 23,
-                    arrivalMinutes: arrivalMinutes - 60  
-                };
-            } else if (arrivalHours < 24 && arrivalMinutes > 59) {
-                return {
-                    arrivalHours: arrivalHours + 1,
-                    arrivalMinutes: arrivalMinutes - 60
-                }
-            } else if (arrivalHours > 24 && arrivalMinutes < 59) {
-                return {
-                    arrivalHours:arrivalHours - 24,
-                    arrivalMinutes
-                } 
-            } else if (arrivalHours > 48 && arrivalMinutes < 59) {
-                return {
-                    arrivalHours:arrivalHours - 48,
-                    arrivalMinutes
-                } 
-            } else {
-                return {
-                    arrivalHours: arrivalHours,
-                    arrivalMinutes: arrivalMinutes
-                }
-            }
-        };
+            return flightDuration;
+        }
+        
+        const departureDate = new Date(date);
+        const departureTime = departureDate.toLocaleTimeString([], {timeStyle: 'short'});
+        const arrivalDate = new Date(+departureDate + duration * 6e4);
+        const arrivalTime = arrivalDate.toLocaleTimeString([], {timeStyle: 'short'});
 
         function getZero(num) {
             if (num < 10) {
@@ -69,6 +37,7 @@ const TicketListItems = ({ price, carrier, segments }) => {
         }
 
         const getStops = () => {
+
             switch (stops.length) {
                 case 1:
                     return (
@@ -88,31 +57,28 @@ const TicketListItems = ({ price, carrier, segments }) => {
         };
 
         return (
-            <div key={index + 1} className='ticket-info'>
-                <div className='route'>
+            <ul key={index + 1} className='ticket-info'>
+                <li className='route'>
                     <span>{`${origin} - ${destination}`}</span>
-                    <div>{getZero(departureHours)}:{getZero(departureMinutes)} - {getZero(getArrivalTime().arrivalHours)}:{getZero(getArrivalTime().arrivalMinutes)}</div>
-                </div>
-                <div className='length'>
+                    <div>{departureTime} - {arrivalTime}</div>
+                </li>
+                <li className='length'>
                     <span>В пути</span>
-                    <div>{`${getZero(getDurationFlight().hours)}ч ${(getDurationFlight().minutes)}м`}</div>
-                </div>
-                <div className='stops'>
+                    <div>{getDurationFlight()}</div>
+                </li>
+                <li className='stops'>
                     <span>{stops.length} пересадки</span>
                     {getStops()}
-                </div>
-            </div>
+                </li>
+            </ul>
         )
     });  
     
     return (
-        <li className='ticket'>
-            <div className='header'>
-                <div className='price'>{price} Р</div>
-                <img className='logo' src={`https://pics.avs.io/99/36/${carrier}.png`} alt='logo'></img>
-            </div>
+        <div className='ticket'>
+            <TicketListHeader price={price} carrier={carrier} />
             {content}
-        </li>
+        </div>
     );
 }  
 

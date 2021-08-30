@@ -50,7 +50,7 @@ const showChanges = (data, id) => {
     return {
         type: 'CHANGES',
         payload: data,
-        id: id
+        id
     }
 }
 

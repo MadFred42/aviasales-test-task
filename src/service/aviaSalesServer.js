@@ -15,7 +15,6 @@ export default class AviaSalesSerive {
     }
 
     async getTickets(url) {
-        console.log(url);
         const res = await fetch(`${this.__urlTickets}?searchId=${url}`);
 
         if (res.status === 500) {
