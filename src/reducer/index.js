@@ -1,10 +1,10 @@
 const initialState = {
-    id: null,
-    tickets: [],
-    sorted: [],
-    filtered:[],
-    content: [],
-    active: 'none',
+    id: null, // id полученные с апишки
+    tickets: [], // все билеты полученные с апишки
+    sorted: [], //сортирует данные по выбранному критерию
+    filtered:[], // фильтрует данные по выбранным чекам
+    content: [], // выводит контент со всеми изменениыми сортировки или фильтров
+    active: 'none', // выбор какая кнопка активная
     changes: null
 }
 
@@ -76,31 +76,35 @@ const reducer = (state = initialState, action) => {
             };
         case 'CHANGES':
             const lastIndexChng = action.payload.length;
-            const changesSort = state.filtered.filter((item) => {
-                return item.segments.every(item => {
-                    return item.stops.length === +action.id
-                })
-            });
-            const changes = changesSort.slice(0, lastIndexChng);
-            
+
+            if (action.id.length < 1) {
+                return {
+                    ...state,
+                    filtered: state.tickets,    
+                };
+            }
+
+            const filterSorting = action.id.map(elem => {
+                return state.sorted.filter((item) => {
+                    return item.segments.every(item => {
+                        return item.stops.length === +elem
+                    })
+                });
+            });            
+            const some = filterSorting.flat();
+            const changesSort = some.slice(0, lastIndexChng);
+
             return {
                 ...state,
-                filtered: changesSort,
-                content: changes
+                filtered: some,
+                content: changesSort
             };
         case 'SHOW_MORE': 
-            const n = action.payload.length;
-            const moreItems = state.filtered.slice(0, (n + 5));
+            const addFiveMore = action.payload.length;
+            const moreItems = state.filtered.slice(0, (addFiveMore + 5));
             return {
                 ...state,
                 content: moreItems
-            };
-        case 'SHOW_WITHOUT_FILTER':
-            const withoutFilter = state.tickets.slice(0, action.payload.length);
-            return {
-                ...state,
-                filtered: state.tickets,
-                content: withoutFilter
             };
         default:
             return state;

@@ -1,6 +1,6 @@
 import React from 'react';
 import SelectingTabs from '../selectingTabs/selectingTabs';
-import FilterItems from '../filterItems/filterItems';
+import FilterItems from '../filterItems';
 import TicketList from '../ticketList';
 import image from './Logo.jpg';
 

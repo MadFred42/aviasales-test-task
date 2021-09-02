@@ -1,3 +1,3 @@
-import FilterItems from "./filterItems";
+import { FilterItems } from "./filterItems";
 
 export default FilterItems;

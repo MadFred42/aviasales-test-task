@@ -12,7 +12,7 @@ class TicketList extends Component {
     
     componentDidMount() {
         const {AviaSalesService} = this.props;
-    
+        
         AviaSalesService.getId()
             .then(item => {
                 this.props.getId(item.searchId);  

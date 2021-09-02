@@ -62,13 +62,6 @@ const showAllChanges = (data, id) => {
     }
 }
 
-const showWithoutFilter = (data) => {
-    return {
-        type: 'SHOW_WITHOUT_FILTER',
-        payload: data
-    }
-}
-
 export {
     getId,
     getTicket,
@@ -78,6 +71,5 @@ export {
     showTheFastest,
     showOpti,
     showChanges,
-    showWithoutFilter,
     showAllChanges
 }
