@@ -5,7 +5,6 @@ import './filterItems.css'
 
 export const FilterItems = () => {
 
-
     return (
         <div className='filter-block'>
             <h1>Количество пересадок</h1>
